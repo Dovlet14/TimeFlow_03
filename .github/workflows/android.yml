@@ -68,6 +68,11 @@ jobs:
               cp "$SOURCE_ICON" assets/icon-only.png
             fi
             npm run generate-assets || true
+            
+            # Force modern Android devices to fall back to our beautifully scaled legacy/round custom PNG launcher icons
+            # by removing the default adaptive-icon XML descriptor directories.
+            echo "Removing adaptive icon XML descriptors to force PNG fallback on modern phones..."
+            rm -rf android/app/src/main/res/mipmap-anydpi-v26
           else
             echo "Warning: No logo or icon found at assets/icon-only.png or public/logo.png. Skipping launcher icon generation."
           fi
